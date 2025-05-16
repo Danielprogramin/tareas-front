@@ -44,7 +44,7 @@ const TareaCompletarButton = ({ id, onComplete }: { id: number; onComplete: () =
       size="sm"
       onClick={handleCompletar}
       disabled={isLoading}
-      className="text-green-600 border-green-200 hover:bg-green-50 hover:text-green-700"
+      className="text-green-600 border-green-200 hover:bg-green-50 hover:text-green-700 cursor-pointer"
     >
       {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
       <span className="sr-only">Completar</span>
@@ -74,7 +74,7 @@ const TareaDeleteButton = ({ id, onDelete }: { id: number; onDelete: () => void 
       size="sm"
       onClick={handleDelete}
       disabled={isLoading}
-      className="text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700"
+      className="text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700 cursor-pointer"
     >
       {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash className="h-4 w-4" />}
       <span className="sr-only">Eliminar</span>
@@ -252,7 +252,7 @@ const TareaTable = () => {
                           variant="outline"
                           size="sm"
                           onClick={() => router.push(`/tarea/edit?id=${tarea.id}`)}
-                          className="text-blue-600 border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+                          className="text-blue-600 border-blue-200 hover:bg-blue-50 hover:text-blue-700 cursor-pointer"
                         >
                           <Edit className="h-4 w-4" />
                           <span className="sr-only">Editar</span>

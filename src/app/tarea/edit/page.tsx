@@ -112,7 +112,7 @@ export default function TareaEditForm() {
     }
 
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 p-4">
+      
         <Card className="w-full max-w-md mx-auto">
             <CardHeader>
                 <CardTitle className="text-2xl">Editar Tarea</CardTitle>
@@ -233,6 +233,5 @@ export default function TareaEditForm() {
                 </CardFooter>
             </form>
         </Card>
-        </div>
     );
 }

@@ -17,7 +17,7 @@ const TareaDeleteButton = ({ id }: { id: number }) => {
     }
   };
 
-  return <button onClick={handleDelete}>🗑 Eliminar</button>;
+  return <button className="cursor-pointer" onClick={handleDelete}>🗑 Eliminar</button>;
 };
 
 export default TareaDeleteButton;

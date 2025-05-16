@@ -15,7 +15,7 @@ const TareaCompletarButton = ({ id }: { id: number }) => {
     }
   };
 
-  return <button onClick={marcarComoCompletada}>✅ Completar</button>;
+  return <button className="cursor-pointer" onClick={marcarComoCompletada}>✅ Completar</button>;
 };
 
 export default TareaCompletarButton;
