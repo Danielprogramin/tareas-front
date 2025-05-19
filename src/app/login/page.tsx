@@ -87,6 +87,12 @@ const LoginForm: React.FC = () => {
                 Regístrate
               </Link>
             </div>
+            <div className="text-center text-sm">
+              ¿Olvidaste tu contraseña?{" "}
+              <Link href="/forgot-password" className="text-blue-500 hover:underline">
+                Recuperar contraseña
+              </Link>
+            </div>
           </CardFooter>
         </Card>
 

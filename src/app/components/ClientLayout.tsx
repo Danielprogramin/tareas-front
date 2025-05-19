@@ -11,7 +11,7 @@ interface ClientLayoutProps {
 
 const ClientLayout = ({ children }: ClientLayoutProps) => {
   const pathname = usePathname();
-  const hideLayout = pathname === "/login" || pathname === "/register" || pathname === "/";
+  const hideLayout = pathname === "/login" || pathname === "/register" || pathname === "/forgot-password" || pathname === "/reset-password" || pathname === "/";
 
   if (hideLayout) {
     return <>{children}</>;
