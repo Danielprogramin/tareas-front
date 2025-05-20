@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import { useParams } from "next/navigation"
+import ComentarioForm from "@/app/comentarios/page"
 
 interface Tarea {
   id: number
@@ -261,7 +262,11 @@ const TareaTable = () => {
                         <TareaDeleteButton id={tarea.id} onDelete={fetchTareas} />
                       </div>
                     </TableCell>
+                    <TableCell colSpan={5}>
+                      <ComentarioForm tareaId={tarea.id} titulo={`Comentarios: ${tarea.descripcion}`} />
+                    </TableCell>
                   </TableRow>
+
                 )
               })}
             </TableBody>
