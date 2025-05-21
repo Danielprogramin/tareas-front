@@ -5,6 +5,7 @@ import type React from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { LayoutDashboard, ListTodo, PlusCircle, Users, Settings } from "lucide-react"
+import { CalendarIcon } from "lucide-react"
 
 import {
   Sidebar,
@@ -30,6 +31,7 @@ const menuItems = [
   { label: "Tareas", path: "/tarea", icon: ListTodo },
   { label: "Crear Tarea", path: "/tarea/create", icon: PlusCircle },
   { label: "Usuarios", path: "/usuarios", icon: Users },
+  { label: "Calendario", path: "/calendario", icon: CalendarIcon },
 ]
 
 export function AppSidebar() {

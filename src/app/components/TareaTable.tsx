@@ -16,6 +16,7 @@ import { useParams } from "next/navigation"
 import ComentarioForm from "@/app/comentarios/page"
 
 interface Tarea {
+  usuarioId: number
   id: number
   descripcion: string
   prioridad: "Baja" | "Media" | "Alta"
@@ -89,6 +90,11 @@ const TareaTable = () => {
   const [tareas, setTareas] = useState<Tarea[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
+  const [filtroFechaInicio, setFiltroFechaInicio] = useState<string | null>(null);
+  const [filtroFechaFin, setFiltroFechaFin] = useState<string | null>(null);
+  const [filtroPrioridad, setFiltroPrioridad] = useState<string | null>(null);
+  const [filtroUsuario, setFiltroUsuario] = useState<string | null>(null);
+
 
   const fetchTareas = async () => {
     setIsLoading(true)
@@ -131,6 +137,24 @@ const TareaTable = () => {
         return <Badge variant="outline">{priority}</Badge>
     }
   }
+
+  const tareasFiltradas = tareas.filter((tarea) => {
+    const fechaVencimiento = tarea.fechaVencimiento ? parseISO(tarea.fechaVencimiento) : null;
+
+    const cumpleFechaInicio = filtroFechaInicio
+      ? fechaVencimiento && fechaVencimiento >= parseISO(filtroFechaInicio)
+      : true;
+
+    const cumpleFechaFin = filtroFechaFin
+      ? fechaVencimiento && fechaVencimiento <= parseISO(filtroFechaFin)
+      : true;
+
+    const cumplePrioridad = filtroPrioridad ? tarea.prioridad === filtroPrioridad : true;
+
+    const cumpleUsuario = filtroUsuario ? tarea.usuarioId === parseInt(filtroUsuario) : true;
+
+    return cumpleFechaInicio && cumpleFechaFin && cumplePrioridad && cumpleUsuario;
+  });
 
   // Función para formatear la fecha
   const formatDate = (dateString: string | null) => {
@@ -194,6 +218,58 @@ const TareaTable = () => {
       <CardHeader>
         <CardTitle>Tareas</CardTitle>
         <CardDescription>Gestiona tus tareas pendientes y completadas</CardDescription>
+        <div className="flex flex-wrap gap-4 mb-4">
+          {/* Filtro por fecha */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Desde</label>
+            <input
+              type="date"
+              value={filtroFechaInicio || ''}
+              onChange={(e) => setFiltroFechaInicio(e.target.value || null)}
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Hasta</label>
+            <input
+              type="date"
+              value={filtroFechaFin || ''}
+              onChange={(e) => setFiltroFechaFin(e.target.value || null)}
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+            />
+          </div>
+
+          {/* Filtro por prioridad */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Prioridad</label>
+            <select
+              value={filtroPrioridad || ''}
+              onChange={(e) => setFiltroPrioridad(e.target.value || null)}
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+            >
+              <option value="">Todas</option>
+              <option value="Baja">Baja</option>
+              <option value="Media">Media</option>
+              <option value="Alta">Alta</option>
+            </select>
+          </div>
+
+          {/* Filtro por usuario */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Usuario</label>
+            <select
+              value={filtroUsuario || ''}
+              onChange={(e) => setFiltroUsuario(e.target.value || null)}
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+            >
+              <option value="">Todos</option>
+              {/* Aquí deberías mapear los usuarios disponibles */}
+              <option value="1">Usuario 1</option>
+              <option value="2">Usuario 2</option>
+              {/* ... */}
+            </select>
+          </div>
+        </div>
       </CardHeader>
       <CardContent>
         <div className="rounded-md border">
@@ -208,7 +284,7 @@ const TareaTable = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {tareas.map((tarea) => {
+              {tareasFiltradas.map((tarea) => {
                 const dateInfo = tarea.fechaVencimiento ? formatDate(tarea.fechaVencimiento) : null
 
                 return (
